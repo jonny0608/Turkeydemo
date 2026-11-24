@@ -1,0 +1,361 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radiohead - In Turkeys</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            background: #101012;
+            color: #eee;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Album cover background */
+        .poster {
+            width: min(94vw, 650px);
+            aspect-ratio: 1 / 1.12;
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(
+                ellipse at 45% 45%,
+                #30202c,
+                transparent 60%
+            ), #09090b;
+            border: 1px solid #555;
+        }
+
+        /* Radiohead title */
+        h1 {
+            position: absolute;
+            top: 4%;
+            left: 6%;
+            margin: 0;
+            font-size: clamp(22px, 6vw, 48px);
+            letter-spacing: -.07em;
+            line-height: .95;
+            z-index: 5;
+        }
+
+        h1 span {
+            display: block;
+            color: #f79535;
+            text-shadow: 2px 0 #de3979, -2px 1px #5bcce1;
+        }
+
+        /* Kid A inspired mountains */
+        .mountains {
+            position: absolute;
+            inset: 35% 0 0;
+            background: linear-gradient(165deg, #465767, #171b24 55%);
+            clip-path: polygon(
+                0 42%,
+                12% 20%,
+                22% 39%,
+                39% 0,
+                49% 35%,
+                63% 14%,
+                77% 51%,
+                89% 23%,
+                100% 47%,
+                100% 100%,
+                0 100%
+            );
+            opacity: .65;
+        }
+
+        /* Turkey container */
+        .turkey {
+            position: absolute;
+            width: 88%;
+            aspect-ratio: 1;
+            left: 6%;
+            top: 17%;
+        }
+
+        .turkey div {
+            position: absolute;
+        }
+
+        /* In Rainbows inspired feathers */
+        .feather {
+            width: 14%;
+            height: 45%;
+            left: 43%;
+            top: 16%;
+            border-radius: 65% 65% 25% 25%;
+            transform-origin: 50% 100%;
+            transform: rotate(var(--angle));
+
+            background: repeating-linear-gradient(
+                125deg,
+                transparent 0 9px,
+                #ffffff30 10px 12px,
+                transparent 13px 22px
+            ), linear-gradient(
+                0deg,
+                #14141a,
+                var(--color) 65%,
+                #fff4c5
+            );
+
+            border: 2px solid #14141a;
+            box-shadow: 0 0 14px var(--color);
+        }
+
+        /* Turkey body */
+        .body {
+            width: 40%;
+            height: 39%;
+            left: 30%;
+            top: 48%;
+            border-radius: 50%;
+            background: repeating-linear-gradient(
+                145deg,
+                transparent 0 12px,
+                #ffffff12 13px 14px
+            ), #26262c;
+            border: 3px solid #e6e0d4;
+            z-index: 2;
+        }
+
+        /* Wings */
+        .wing {
+            width: 20%;
+            height: 28%;
+            top: 51%;
+            background: #141419;
+            border: 2px solid #bbb;
+            border-radius: 80% 15% 80% 30%;
+            z-index: 3;
+        }
+
+        .wing.left {
+            left: 24%;
+            transform: rotate(-18deg);
+        }
+
+        .wing.right {
+            right: 24%;
+            transform: scaleX(-1) rotate(-18deg);
+        }
+
+        /* Turkey legs */
+        .leg {
+            width: 4%;
+            height: 14%;
+            top: 82%;
+            background: #e5a348;
+            border-radius: 8px;
+        }
+
+        .leg.left {
+            left: 42%;
+        }
+
+        .leg.right {
+            right: 42%;
+        }
+
+        /* Turkey toes */
+        .leg::before,
+        .leg::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 40%;
+            bottom: -8%;
+            background: #e5a348;
+            border-radius: 8px;
+            transform-origin: top;
+            transform: rotate(45deg);
+        }
+
+        .leg::after {
+            transform: rotate(-45deg);
+        }
+
+        /* Radiohead Modified Bear inspired head */
+        .head {
+            width: 29%;
+            height: 25%;
+            left: 35.5%;
+            top: 34%;
+            background: #e9e6dd;
+            border: 4px solid #111;
+            border-radius: 48%;
+            z-index: 4;
+        }
+
+        /* Bear ears */
+        .ear {
+            width: 34%;
+            height: 40%;
+            top: -23%;
+            background: #e9e6dd;
+            border: 4px solid #111;
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .ear.left {
+            left: -8%;
+        }
+
+        .ear.right {
+            right: -8%;
+        }
+
+        /* Eyes */
+        .eye {
+            width: 23%;
+            height: 24%;
+            top: 29%;
+            background: #111;
+            border-radius: 50%;
+        }
+
+        .eye.left {
+            left: 18%;
+        }
+
+        .eye.right {
+            right: 18%;
+        }
+
+        /* Turkey beak */
+        .beak {
+            width: 30%;
+            height: 18%;
+            top: 51%;
+            left: 35%;
+            background: #ffb13b;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+        }
+
+        /* Red turkey wattle */
+        .wattle {
+            width: 12%;
+            height: 27%;
+            top: 58%;
+            left: 57%;
+            background: #e73c56;
+            border-radius: 50%;
+        }
+
+        /* Modified Bear smile */
+        .mouth {
+            width: 56%;
+            height: 17%;
+            left: 22%;
+            top: 74%;
+            border: 3px solid #111;
+            border-radius: 0 0 50% 50%;
+            background: repeating-linear-gradient(
+                90deg,
+                #eee 0 16%,
+                #111 16% 20%
+            );
+        }
+
+        /* OK Computer reference */
+        .mark {
+            position: absolute;
+            left: 50%;
+            top: 70%;
+            transform: translateX(-50%);
+            z-index: 5;
+            font-weight: bold;
+            color: #eee;
+            font-size: clamp(10px, 2.7vw, 20px);
+        }
+
+        /* Bottom album cover text */
+        .footer {
+            position: absolute;
+            bottom: 3%;
+            left: 6%;
+            right: 6%;
+            border-top: 1px solid #888;
+            padding-top: 8px;
+            display: flex;
+            justify-content: space-between;
+            font-size: clamp(9px, 2vw, 14px);
+            letter-spacing: .15em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="poster">
+
+        <h1>
+            RADIOHEAD
+            <span>IN TURKEYS</span>
+        </h1>
+
+        <div class="mountains"></div>
+
+        <div class="turkey">
+
+            <!-- Rainbow tail feathers -->
+            <div class="feather" style="--angle: -96deg; --color: #ed363e"></div>
+            <div class="feather" style="--angle: -72deg; --color: #ff7925"></div>
+            <div class="feather" style="--angle: -48deg; --color: #f9dc45"></div>
+            <div class="feather" style="--angle: -24deg; --color: #87d652"></div>
+            <div class="feather" style="--angle: 0deg; --color: #50d6bf"></div>
+            <div class="feather" style="--angle: 24deg; --color: #439de9"></div>
+            <div class="feather" style="--angle: 48deg; --color: #7958ed"></div>
+            <div class="feather" style="--angle: 72deg; --color: #e948a4"></div>
+            <div class="feather" style="--angle: 96deg; --color: #f54650"></div>
+
+            <!-- Legs -->
+            <div class="leg left"></div>
+            <div class="leg right"></div>
+
+            <!-- Body -->
+            <div class="body"></div>
+
+            <!-- Wings -->
+            <div class="wing left"></div>
+            <div class="wing right"></div>
+
+            <!-- Head -->
+            <div class="head">
+
+                <div class="ear left"></div>
+                <div class="ear right"></div>
+
+                <div class="eye left"></div>
+                <div class="eye right"></div>
+
+                <div class="wattle"></div>
+                <div class="beak"></div>
+                <div class="mouth"></div>
+
+            </div>
+
+            <span class="mark">OK / 97</span>
+
+        </div>
+
+        <footer class="footer">
+            <span>WEIRD BIRDS</span>
+            <span>07 / 11</span>
+        </footer>
+
+    </main>
+
+</body>
+</html>
